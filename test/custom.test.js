@@ -24,16 +24,16 @@ describe('test/custom.test.js', () => {
     let filepath;
     filepath = path.join(__dirname, 'fixtures/custom/app/service/a.js');
     await fs.writeFile(filepath, '');
-    await sleep(1000);
+    await sleep(5000);
 
     await fs.unlink(filepath);
-    app.expect('stdout', new RegExp(`reload worker because ${filepath}`));
+    app.expect('stdout', /reload worker because .*?a\.js/);
 
     filepath = path.join(__dirname, 'fixtures/custom/app/service/b.ts');
     await fs.writeFile(filepath, '');
-    await sleep(1000);
+    await sleep(5000);
 
     await fs.unlink(filepath);
-    app.notExpect('stdout', new RegExp(`reload worker because ${filepath}`));
+    app.notExpect('stdout', /reload worker because .*?b\.ts/);
   });
 });

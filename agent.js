@@ -33,14 +33,14 @@ module.exports = agent => {
     'app.js',
   ];
 
-  watchDirs = watchDirs.concat(config.watchDirs).map(dir => path.join(baseDir, dir));
+  watchDirs = watchDirs.concat(config.watchDirs).map(dir => path.resolve(baseDir, dir));
 
   const ignoreReloadFileDirs = [
     'app/views',
     'app/view',
     'app/assets',
     'app/public',
-  ].concat(config.ignoreDirs).map(dir => path.join(baseDir, dir));
+  ].concat(config.ignoreDirs).map(dir => path.resolve(baseDir, dir));
 
   // watch dirs to reload worker, will debounce 200ms
   agent.watcher.watch(watchDirs, debounce(reloadWorker, 200));
